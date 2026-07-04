@@ -7,4 +7,9 @@ import com.ilearn.user_service.model.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel,Long>{
 
+    boolean existsByUserName(String userName);
+
+    boolean existsByEmailId(String emailId);
+
+    boolean existsByMobileNo(String mobileNo);
 }

@@ -8,12 +8,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "userdetail")
+@Table(name = "userdetail",
+uniqueConstraints = {
+    @UniqueConstraint(columnNames = "user_name"),
+    @UniqueConstraint(columnNames = "email_id"),
+    @UniqueConstraint(columnNames = "mobile_no")
+})
 public class UserModel {
 
 	@Id
@@ -50,6 +56,9 @@ public class UserModel {
 	@Pattern(regexp = "^[6-9]\\d{9}$",message = AppConstants.INVALID_MOBILE)
 	private String mobileNo;
 
+	public UserModel() {
+	}
+	
 	public UserModel(Long id, String userName, String firstName, String lastName, String password, String role,
 			String emailId, String mobileNo) {
 		super();

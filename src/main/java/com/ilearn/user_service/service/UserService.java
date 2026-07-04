@@ -23,6 +23,17 @@ public class UserService {
 	PasswordEncoder passwordEncoder;
 
 	public ApiResponse createUser(UserModel userModel) {
+		if (userRepository.existsByUserName(userModel.getUserName())) {
+			return new ApiResponse(AppConstants.FAILURE, AppConstants.USER_NAME_DUPLICATE);
+		}
+
+		if (userRepository.existsByEmailId(userModel.getEmailId())) {
+			return new ApiResponse(AppConstants.FAILURE, AppConstants.EMAIL_ID_DUPLICATE);
+		}
+
+		if (userRepository.existsByMobileNo(userModel.getMobileNo())) {
+			return new ApiResponse(AppConstants.FAILURE, AppConstants.MOBILE_DUPLICATE);
+		}
 		String encryptedPassword = passwordEncoder.encode(userModel.getPassword());
 		userModel.setPassword(encryptedPassword);
 		UserModel response = userRepository.save(userModel);
