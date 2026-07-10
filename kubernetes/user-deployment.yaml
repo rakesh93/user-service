@@ -15,7 +15,7 @@ spec:
       containers:
         - name: user-service
           image: rakesh5693/user-service
-		  imagePullPolicy: IfNotPresent
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
           env:
