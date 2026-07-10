@@ -34,4 +34,5 @@ public class UserController {
 	public List<UserModel> getUsersByRole(@PathVariable String role) {
 		return userService.getUsersByRole(role);
 	}
+	
 }
