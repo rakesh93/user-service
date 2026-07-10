@@ -1,5 +1,7 @@
 package com.ilearn.user_service.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,10 @@ public class UserService {
 		} else {
 			return new ApiResponse(AppConstants.FAILURE, AppConstants.NOT_CREATED);
 		}
+	}
+
+	public List<UserModel> getUsersByRole(String role) {
+		return userRepository.findByRole(role);
 	}
 
 }
