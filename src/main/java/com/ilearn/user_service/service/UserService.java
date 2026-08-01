@@ -38,6 +38,8 @@ public class UserService {
 		}
 		String encryptedPassword = passwordEncoder.encode(userModel.getPassword());
 		userModel.setPassword(encryptedPassword);
+		userModel.setCreatedDateTime(java.time.LocalDateTime.now());
+		userModel.setModifiedDateTime(java.time.LocalDateTime.now());
 		UserModel response = userRepository.save(userModel);
 		if (response != null) {
 			logger.info("User saved successfully with id {}", userModel.getId());
@@ -49,6 +51,16 @@ public class UserService {
 
 	public List<UserModel> getUsersByRole(String role) {
 		return userRepository.findByRole(role);
+	}
+
+	public ApiResponse updateUser(UserModel userModel) {
+		boolean existingUser = userRepository.existsByUserName(userModel.getUserName());
+		if (!existingUser) {
+			return new ApiResponse(AppConstants.FAILURE, AppConstants.USER_NOT_FOUND);
+		}
+		userRepository.updatePassword(passwordEncoder.encode(userModel.getPassword()),java.time.LocalDateTime.now(), userModel.getUserName());
+		logger.info("User Password successfully userModel with userName {}", userModel.getUserName());
+		return new ApiResponse(AppConstants.SUCCESS, AppConstants.UPDATED);
 	}
 
 }

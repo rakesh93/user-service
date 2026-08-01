@@ -1,5 +1,7 @@
 package com.ilearn.user_service.model;
 
+import java.time.LocalDateTime;
+
 import com.ilearn.user_service.util.AppConstants;
 
 import jakarta.persistence.Column;
@@ -56,11 +58,17 @@ public class UserModel {
 	@Pattern(regexp = "^[6-9]\\d{9}$",message = AppConstants.INVALID_MOBILE)
 	private String mobileNo;
 
-	public UserModel() {
-	}
+	@Column(name = "created_date_time")
+	private LocalDateTime createdDateTime;
 	
-	public UserModel(Long id, String userName, String firstName, String lastName, String password, String role,
-			String emailId, String mobileNo) {
+	@Column(name = "modified_date_time")
+	private LocalDateTime modifiedDateTime;
+	
+	public UserModel() {
+	}	
+
+	public UserModel(Long id,String userName, String firstName, String lastName, String password, String role, String emailId,
+			String mobileNo,LocalDateTime createdDateTime, LocalDateTime modifiedDateTime) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -70,6 +78,24 @@ public class UserModel {
 		this.role = role;
 		this.emailId = emailId;
 		this.mobileNo = mobileNo;
+		this.createdDateTime = createdDateTime;
+		this.modifiedDateTime = modifiedDateTime;
+	}
+
+	public LocalDateTime getCreatedDateTime() {
+		return createdDateTime;
+	}
+
+	public void setCreatedDateTime(LocalDateTime createdDateTime) {
+		this.createdDateTime = createdDateTime;
+	}
+
+	public LocalDateTime getModifiedDateTime() {
+		return modifiedDateTime;
+	}
+
+	public void setModifiedDateTime(LocalDateTime modifiedDateTime) {
+		this.modifiedDateTime = modifiedDateTime;
 	}
 
 	public Long getId() {
@@ -139,7 +165,8 @@ public class UserModel {
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", password=" + password + ", role=" + role + ", emailId=" + emailId + ", mobileNo=" + mobileNo + "]";
+				+ ", password=" + password + ", role=" + role + ", emailId=" + emailId + ", mobileNo=" + mobileNo
+				+ ", createdDateTime=" + createdDateTime + ", modifiedDateTime=" + modifiedDateTime + "]";
 	}
 
 }
