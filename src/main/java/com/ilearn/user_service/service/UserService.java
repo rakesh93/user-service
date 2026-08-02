@@ -1,5 +1,6 @@
 package com.ilearn.user_service.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,15 +28,15 @@ public class UserService {
 
 	public ApiResponse createUser(UserModel userModel) {
 		if (userRepository.existsByUserName(userModel.getUserName())) {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NAME_DUPLICATE);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NAME_DUPLICATE,Collections.emptyList());
 		}
 
 		if (userRepository.existsByEmailId(userModel.getEmailId())) {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.EMAIL_ID_DUPLICATE);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.EMAIL_ID_DUPLICATE,Collections.emptyList());
 		}
 
 		if (userRepository.existsByMobileNo(userModel.getMobileNo())) {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.MOBILE_DUPLICATE);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.MOBILE_DUPLICATE,Collections.emptyList());
 		}
 		String encryptedPassword = passwordEncoder.encode(userModel.getPassword());
 		userModel.setPassword(encryptedPassword);
@@ -44,9 +45,9 @@ public class UserService {
 		UserModel response = userRepository.save(userModel);
 		if (response != null) {
 			logger.info("User saved successfully with id {}", userModel.getId());
-			return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.CREATED);
+			return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.CREATED,userModel);
 		} else {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.NOT_CREATED);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.NOT_CREATED,Collections.emptyList());
 		}
 	}
 
@@ -57,19 +58,28 @@ public class UserService {
 	public ApiResponse updateUser(UserModel userModel) {
 		boolean existingUser = userRepository.existsByUserName(userModel.getUserName());
 		if (!existingUser) {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NOT_FOUND);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NOT_FOUND,Collections.emptyList());
 		}
 		userRepository.updatePassword(passwordEncoder.encode(userModel.getPassword()),java.time.LocalDateTime.now(), userModel.getUserName());
 		logger.info("User Password successfully userModel with userName {}", userModel.getUserName());
-		return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.UPDATED);
+		return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.UPDATED,Collections.emptyList());
 	}
 
 	public ApiResponse getUserNameByMobileNumber(String mobileNo) {
 		UserModel userName = userRepository.findByMobileNo(mobileNo);
 		if (userName != null) {
-			return new ApiResponse(AppConstants.SUCCESS_CODE, userName.getUserName());
+			return new ApiResponse(AppConstants.SUCCESS_CODE,userName.getUserName(),Collections.emptyList());
 		} else {
-			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.MOBILE_NOT_REGISTER);
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.MOBILE_NOT_REGISTER,Collections.emptyList());
+		}
+	}
+
+	public ApiResponse getProfileDetail(String userName) {
+		UserModel userModel = userRepository.findByUserName(userName);
+		if (userModel != null) {
+			return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.RESULT_GOT_SUCCESS,userModel);
+		} else {
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NOT_FOUND,Collections.emptyList());
 		}
 	}
 

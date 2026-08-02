@@ -24,8 +24,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	List<UserModel> findByRole(String role);
 
+	UserModel findByUserName(String userName);
+
 	UserModel findByMobileNo(String mobileNo);
-	
+
 	@Transactional
 	@Modifying
 	@Query("""
@@ -33,5 +35,4 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 	int updatePassword(@Param("password") String password, @Param("modifiedDateTime") LocalDateTime modifiedDateTime,
 			@Param("userName") String userName);
 
-	
 }

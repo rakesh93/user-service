@@ -14,6 +14,7 @@ public class AppConstants {
 	public static final String UPDATED = "Account Updated Successfully";
 	public static final String NOT_UPDATED = "Failure To Update Account";
 	public static final String DELETED = "Account Deleted Successfully";
+	public static final String RESULT_GOT_SUCCESS = "Successfully got Record";
 	public static final String USER_NOT_FOUND = "User Not Found";
 	public static final String USER_NAME = "UserName is Required";
 	public static final String PASSWORD = "Password is Required";

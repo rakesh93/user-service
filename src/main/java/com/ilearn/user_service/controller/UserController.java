@@ -42,4 +42,9 @@ public class UserController {
 		return userService.getUserNameByMobileNumber(mobileNo);
 	}
 	
+	@GetMapping("/getProfile/{userName}")
+	public ApiResponse getProfileDetail(@PathVariable String userName) {
+		return userService.getProfileDetail(userName);
+	}
+	
 }
