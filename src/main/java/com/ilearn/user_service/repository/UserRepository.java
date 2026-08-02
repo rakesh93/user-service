@@ -24,10 +24,14 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	List<UserModel> findByRole(String role);
 
+	UserModel findByMobileNo(String mobileNo);
+	
 	@Transactional
 	@Modifying
 	@Query("""
 			UPDATE UserModel u SET u.password = :password, u.modifiedDateTime = :modifiedDateTime WHERE u.userName = :userName """)
 	int updatePassword(@Param("password") String password, @Param("modifiedDateTime") LocalDateTime modifiedDateTime,
 			@Param("userName") String userName);
+
+	
 }

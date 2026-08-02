@@ -37,4 +37,9 @@ public class UserController {
 		return userService.updateUser(userModel);
 	}
 	
+	@GetMapping("/getUserName/{mobileNo}")
+	public ApiResponse getUserNameByMobileNumber(@PathVariable String mobileNo) {
+		return userService.getUserNameByMobileNumber(mobileNo);
+	}
+	
 }

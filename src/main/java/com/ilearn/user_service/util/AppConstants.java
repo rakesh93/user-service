@@ -3,10 +3,10 @@ package com.ilearn.user_service.util;
 public class AppConstants {
 
 	// API Response Code
-	public static final int SUCCESS = 200;
-	public static final int FAILURE = 400;
-	public static final int NOT_FOUND = 404;
-	public static final int SERVER_ERROR = 500;
+	public static final int SUCCESS_CODE = 200;
+	public static final int FAILURE_CODE = 400;
+	public static final int NOT_FOUND_CODE = 404;
+	public static final int SERVER_ERROR_CODE = 500;
 
 	// Message Value Constant
 	public static final String CREATED = "Successfully Created Account";
@@ -21,6 +21,7 @@ public class AppConstants {
 	public static final String LAST_NAME = "LastName is Required";
 	public static final String EMAIL_ID = "EmailId is Required";
 	public static final String MOBILE_NO = "Mobile Number is Required";
+	public static final String MOBILE_NOT_REGISTER = "Mobile Number is not registered with us";
 	public static final String ROLE = "Role is Required";
 	public static final String USER_NAME_DUPLICATE = "UserName is Duplicate.Please entry new one";
 	public static final String EMAIL_ID_DUPLICATE = "EmailId is Duplicate.Please entry new one";
