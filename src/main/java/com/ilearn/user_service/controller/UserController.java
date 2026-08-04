@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,20 +32,30 @@ public class UserController {
 	public List<UserModel> getUsersByRole(@PathVariable String role) {
 		return userService.getUsersByRole(role);
 	}
-	
-	@PostMapping("/updatePassword")
+
+	@PostMapping("/updateForgotPassword")
 	public ApiResponse updateUser(@RequestBody UserModel userModel) {
 		return userService.updateUser(userModel);
 	}
-	
+
 	@GetMapping("/getUserName/{mobileNo}")
 	public ApiResponse getUserNameByMobileNumber(@PathVariable String mobileNo) {
 		return userService.getUserNameByMobileNumber(mobileNo);
 	}
-	
+
 	@GetMapping("/getProfile/{userName}")
 	public ApiResponse getProfileDetail(@PathVariable String userName) {
 		return userService.getProfileDetail(userName);
 	}
+
+	@PutMapping("/updateProfile/{userName}")
+	public ApiResponse updateProfile(@PathVariable String userName, @RequestBody UserModel userModel) {
+		return userService.updateProfile(userName,userModel);
+	}
 	
+	@PostMapping("/updateNewPassword")
+	public ApiResponse updateNewUser(@RequestBody UserModel userModel) {
+		return userService.updateNewUser(userModel);
+	}
+
 }
