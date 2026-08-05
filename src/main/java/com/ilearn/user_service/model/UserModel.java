@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -64,6 +65,12 @@ public class UserModel {
 	@Column(name = "modified_date_time")
 	private LocalDateTime modifiedDateTime;
 	
+	@Transient
+	private String oldPassword;
+
+	@Transient
+	private String newPassword;
+	
 	public UserModel() {
 	}	
 
@@ -80,6 +87,22 @@ public class UserModel {
 		this.mobileNo = mobileNo;
 		this.createdDateTime = createdDateTime;
 		this.modifiedDateTime = modifiedDateTime;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 	public LocalDateTime getCreatedDateTime() {

@@ -18,6 +18,9 @@ public class AppConstants {
 	public static final String USER_NOT_FOUND = "User Not Found";
 	public static final String USER_NAME = "UserName is Required";
 	public static final String PASSWORD = "Password is Required";
+	public static final String PASSWORD_CHANGE_SUCCESS = "Password changed successfully";
+	public static final String EXISTING_PASSWORD_WRONG = "Existing Password is Incorrect";
+	public static final String NEW_PASSWORD_SAME = "New password cannot be the same as old password";
 	public static final String FIRST_NAME = "FirstName is Required";
 	public static final String LAST_NAME = "LastName is Required";
 	public static final String EMAIL_ID = "EmailId is Required";

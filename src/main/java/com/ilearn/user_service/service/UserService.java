@@ -104,8 +104,22 @@ public class UserService {
 		return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.UPDATED, userToUpdate);
 	}
 
-	public ApiResponse updateNewUser(UserModel userModel) {
-	return null;
+	public ApiResponse updateNewUser(String userName, UserModel userModel) {
+		UserModel user = userRepository.findByUserName(userName);
+		if (user == null) {
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.USER_NOT_FOUND, Collections.emptyList());
+		}
+		if (!passwordEncoder.matches(userModel.getOldPassword(), user.getPassword())) {
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.EXISTING_PASSWORD_WRONG,
+					Collections.emptyList());
+		}
+		if (passwordEncoder.matches(userModel.getNewPassword(), user.getPassword())) {
+			return new ApiResponse(AppConstants.FAILURE_CODE, AppConstants.NEW_PASSWORD_SAME, Collections.emptyList());
+		}
+		user.setPassword(passwordEncoder.encode(userModel.getNewPassword()));
+		user.setModifiedDateTime(LocalDateTime.now());
+		userRepository.save(user);
+		return new ApiResponse(AppConstants.SUCCESS_CODE, AppConstants.PASSWORD_CHANGE_SUCCESS,
+				Collections.emptyList());
 	}
-
 }
