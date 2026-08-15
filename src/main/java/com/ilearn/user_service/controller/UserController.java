@@ -20,7 +20,6 @@ import com.ilearn.user_service.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/userservice")
 public class UserController {
 
